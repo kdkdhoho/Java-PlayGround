@@ -69,6 +69,10 @@ class Apple {
         return apple.size >= 50;
     }
 
+    public int compareSize(final Apple otherApple) {
+        return this.size - otherApple.size;
+    }
+
     @Override
     public String toString() {
         return "Apple{" +
@@ -117,6 +121,12 @@ public class CodeSendPractice {
 
         // 7. 색과 크기를 출력한다.
         Apple.prettyPrintApple(apples, Apple::toString);
+
+        // 8. Comparator로 크기순으로 정렬한다.
+        List<Apple> tempApples = new ArrayList<>(apples);
+        tempApples.sort(Apple::compareSize); // 오름차순
+        tempApples.sort((apple, otherApple) -> -apple.compareSize(otherApple)); // 내림차순
+        System.out.println(tempApples); // [Apple{size=1, color='RED'}, Apple{size=30, color='RED'}, Apple{size=50, color='GREEN'}, Apple{size=80, color='GREEN'}, Apple{size=100, color='RED'}]
     }
 }
 
