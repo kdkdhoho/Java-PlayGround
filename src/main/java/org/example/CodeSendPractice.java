@@ -5,6 +5,7 @@ import static org.example.Color.RED;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 enum Color {
@@ -53,6 +54,13 @@ class Apple {
         return result;
     }
 
+    public static void prettyPrintApple(final List<Apple> apples, final Function<Apple, String> function) {
+        for (final Apple apple : apples) {
+            String result = function.apply(apple);
+            System.out.println(result);
+        }
+    }
+
     public boolean isRedApple(final Apple apple) {
         return apple.color.equals(RED);
     }
@@ -97,6 +105,18 @@ public class CodeSendPractice {
         // 5. 메서드를 전달하는 방식으로 size가 50 이상인 사과를 필터링한다.
         List<Apple> advancedBigApples = Apple.filterApples(apples, apple -> apple.isBigApple(apple));
         System.out.println(advancedBigApples); // [Apple{size=50, color='green'}, Apple{size=100, color='red'}, Apple{size=80, color='green'}]
+
+        // 사과 리스트를 인수로 받아 다양한 방법으로 문자열을 출력한다.
+        // 6. Big Apple인지 출력한다.
+        Apple.prettyPrintApple(apples, apple -> {
+            if (apple.isBigApple(apple)) {
+                return "big";
+            }
+            return "small";
+        });
+
+        // 7. 색과 크기를 출력한다.
+        Apple.prettyPrintApple(apples, Apple::toString);
     }
 }
 
